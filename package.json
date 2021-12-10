@@ -19,5 +19,8 @@
   "homepage": "https://github.com/bradleyjosephh/teamprofile_gen#readme",
   "dependencies": {
     "inquirer": "^8.2.0"
+  },
+  "devDependencies": {
+    "jest": "^27.4.4"
   }
 }
