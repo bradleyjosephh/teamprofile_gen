@@ -48,7 +48,7 @@ function questionPrompts() {
                     {
                         type: "input",
                         name: "officeNumber",
-                        message: "Please input your manager office number",
+                        message: "Please input your manager office number.",
                     }
                 ])
                     .then(addManager => {
@@ -56,6 +56,38 @@ function questionPrompts() {
                         teamList.push(manager)
                         teamAdditions()
                     })
+                } else if (answers.role === 'Engineer') {
+                    inquirer.prompt([
+                      {
+                      type: 'input',
+                      name: 'github',
+                      message: 'Please input the link to your github page.',
+                      }
+                    ])
+                    .then(addEngineer => {
+                      const engineer = new Engineer(answers.name, answers.id, answers.email, addEngineer.github)
+                      teamMembers.push(engineer) 
+                      console.log(teamMembers)
+                      teamAdditions()
+                      })
+                  } else if (answers.role === 'Intern') {
+                    inquirer.prompt([
+                      {
+                        type: 'input',
+                        name: 'school',
+                        message: 'Please input the name of the school you attended.',
+                      }
+                    ])
+                    .then(addIntern => {
+                        const intern = new Intern(answers.name, answers.id, answers.email, addIntern.school)
+                        teamMembers.push(intern)
+                      console.log(teamMembers)
+                      teamAdditions()
+                      
+                    })
+                  }
+                })
+                .catch(err => console.log(err))
             }
             const teamAdditions = () => {
                 inquirer.prompt({
@@ -73,7 +105,7 @@ function questionPrompts() {
                                     console.log(err)
                                 }
                             }))
-                            writeToFile("./output/team.html", render(employeeData))
+                            writeToFile("./output/team.html", render(teamList))
                         }
                     })
             }
