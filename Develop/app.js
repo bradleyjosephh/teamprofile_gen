@@ -10,7 +10,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-const employeeInfo = []
+let teamList = []
 
 // function for inquirer to gather info
 
@@ -42,21 +42,55 @@ function questionPrompts() {
             ]
         },
     ])
-        .then(answers =>{
+        .then(answers => {
             if (answers.role === "Manager") {
-                inquirer.prompt([{
-                    type: "input",
-                    name: ""
-                }])
+                inquirer.prompt([
+                    {
+                        type: "input",
+                        name: "officeNumber",
+                        message: "Please input your manager office number",
+                    }
+                ])
+                    .then(addManager => {
+                        const manager = new Manager(answers.name, answers.id, answers.email, addManager.officeNumber)
+                        teamList.push(manager)
+                        teamAdditions()
+                    })
             }
-        })
+            const teamAdditions = () => {
+                inquirer.prompt({
+                    type: "confirm",
+                    name: "confirmNew",
+                    message: "Would you like to add another employee?"
+                })
+                    .then(data => {
+                        if (data.confirmNew == true) {
+                            questionPrompts()
+                        }
+                        else {
+                            fs.mkdir('output', { recursive: true }, (err => {
+                                if (err) {
+                                    console.log(err)
+                                }
+                            }))
+                            writeToFile("./output/team.html", render(employeeData))
+                        }
+                    })
+            }
+            function writeToFile(fileName, data) {
+                fs.writeFile(fileName, data, err => {
+                    if (err) {
+                        console.log(err)
+                    }
+
+                    console.log("Team list finished and ready to display")
+                })
+            }
+
+            questionPrompts()
 
 
 
-
-
-
-}
 
 
 
