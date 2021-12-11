@@ -52,8 +52,8 @@ function questionPrompts() {
                     }
                 ])
                     .then(addManager => {
-                        const manager = new Manager(answers.name, answers.id, answers.email, addManager.officeNumber)
-                        teamList.push(manager)
+                        const newManager = new Manager(answers.name, answers.id, answers.email, addManager.officeNumber)
+                        teamList.push(newManager)
                         teamAdditions()
                     })
                 } else if (answers.role === 'Engineer') {
@@ -65,9 +65,9 @@ function questionPrompts() {
                       }
                     ])
                     .then(addEngineer => {
-                      const engineer = new Engineer(answers.name, answers.id, answers.email, addEngineer.github)
-                      teamMembers.push(engineer) 
-                      console.log(teamMembers)
+                      const newEngineer = new Engineer(answers.name, answers.id, answers.email, addEngineer.github)
+                      teamList.push(newEngineer) 
+                      console.log(teamList)
                       teamAdditions()
                       })
                   } else if (answers.role === 'Intern') {
@@ -79,9 +79,9 @@ function questionPrompts() {
                       }
                     ])
                     .then(addIntern => {
-                        const intern = new Intern(answers.name, answers.id, answers.email, addIntern.school)
-                        teamMembers.push(intern)
-                      console.log(teamMembers)
+                        const newIntern = new Intern(answers.name, answers.id, answers.email, addIntern.school)
+                        teamList.push(newIntern)
+                      console.log(teamList)
                       teamAdditions()
                       
                     })
