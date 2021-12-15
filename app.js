@@ -38,7 +38,7 @@ function questionPrompts() {
             choices: [
                 "Manager",
                 "Engineer",
-                "Intern",
+                "Intern"
             ]
         },
     ])
